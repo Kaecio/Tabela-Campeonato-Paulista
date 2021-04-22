@@ -71,7 +71,24 @@ const tabelaJSON = resultados.reduce((tabela, resultado) => {
 
 console.log(tabelaJSON);
 
-for (const property in tabelaJSON) {
+const tabelaArray = Object.entries(tabelaJSON).map(
+  ([time, { pontos, jogos, vitorias, empates, derrotas }]) => ({
+    time,
+    pontos,
+    jogos,
+    vitorias,
+    empates,
+    derrotas,
+  })
+);
+
+const tabelaOrdenada = tabelaArray.sort(
+  (timeA, timeB) => timeB.pontos - timeA.pontos
+);
+
+console.log(tabelaOrdenada);
+
+for (const property in tabelaOrdenada) {
   console.log(property);
   const linhaBody = document.createElement("tr");
   const cel0 = document.createElement("td");
@@ -81,12 +98,12 @@ for (const property in tabelaJSON) {
   const cel4 = document.createElement("td");
   const cel5 = document.createElement("td");
 
-  cel0.innerHTML = property;
-  cel1.innerHTML = tabelaJSON[property].pontos;
-  cel2.innerHTML = tabelaJSON[property].jogos;
-  cel3.innerHTML = tabelaJSON[property].vitorias;
-  cel4.innerHTML = tabelaJSON[property].empates;
-  cel5.innerHTML = tabelaJSON[property].derrotas;
+  cel0.innerHTML = tabelaOrdenada[property].time;
+  cel1.innerHTML = tabelaOrdenada[property].pontos;
+  cel2.innerHTML = tabelaOrdenada[property].jogos;
+  cel3.innerHTML = tabelaOrdenada[property].vitorias;
+  cel4.innerHTML = tabelaOrdenada[property].empates;
+  cel5.innerHTML = tabelaOrdenada[property].derrotas;
 
   linhaBody.appendChild(cel0);
   linhaBody.appendChild(cel1);
